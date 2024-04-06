@@ -25,15 +25,7 @@ const userSchema = mongoose.Schema({
         type: String,
         default: ""
     },
-    followers: [{
-        type: ObjectId,
-        ref: "USER"
-    }],
-    following: [{
-        type: ObjectId,
-        ref: "USER"
-    }],
-    saved_post: [{
+    myplaylist: [{
         type: ObjectId,
         ref: "POST"
     }]

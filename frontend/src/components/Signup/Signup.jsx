@@ -6,15 +6,20 @@ import left_image4 from '../../assets/leftimage4.png'
 import left_image5 from '../../assets/leftimage5.png'
 import left_image6 from '../../assets/leftimage6.png'
 import left_image7 from '../../assets/leftimage7.png'
-import { NavLink } from 'react-router-dom'
-import Logo from '../../assets/logo.svg'
+import { NavLink, useNavigate } from 'react-router-dom'
+import Logo from '../../assets/logo.png'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import { toast } from "react-toastify";
+import { notify } from '../../../../backend/routes/auth'
+
 
 const Signup = () => {
     const [signupMethod, setSignupMethod] = useState("phone")
+
+    const navigate = useNavigate()
 
     const [showpassmobile, setShowpassmobile] = useState(true)
     const [showcpassmobile, setShowcpassmobile] = useState(true)
@@ -75,15 +80,86 @@ const Signup = () => {
     }, [])
 
     const handleSignupMobile = () => {
-        console.log("Signin with mobile");
-        console.log(phoneNumber);
-        console.log(passwordmobile);
+        fetch("http://localhost:5000/signupwithphone", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                phone: phoneNumber,
+                password: passwordmobile,
+                cpassword: cpasswordmobile
+            })
+        }).then(res => res.json())
+            .then(data => {
+                if (data.error == "Please fill all the fields") {
+                    toast.info("Please fill all the fields")
+                    return
+                }
+                else if (data.error == "Passwords do not match") {
+                    toast.info("Password and Confirm Password should be same")
+                    return
+                }
+                else if (data.error == "Enter Strong Password") {
+                    toast.info("Password must be atleast 8 character long and must contain alteast one uppercase letter, one lowercase letter, one number and one special character!")
+                    return
+                }
+                else if (data.error == "User already exists with that phone number. Try loging in") {
+                    toast.info("User already exists with that phone number. Try loging in")
+                    return
+                }
+                else if (data, error == "Sign Up Successful") {
+                    toast.success("Sign Up Successful")
+                    navigate("/signin")
+                    return
+                }
+                else {
+                    toast.error("Sign Up Failed")
+                    return
+                }
+            })
     }
 
     const handleSignupEmail = () => {
-        console.log("Signin with email");
-        console.log(email);
-        console.log(passwordemail);
+        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+        if (!(emailRegex.test(email))) {
+            notify.info("Enter a correct Email")
+            return
+        }
+        fetch("http://localhost:5000/signupwithemail", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: email,
+                password: passwordemail,
+                cpassword: cpasswordemail
+            })
+        }).then(res => res.json())
+            .then(data => {
+                if (data.error == "Please fill all the fields") {
+                    toast.info("Please fill all the fields")
+                    return
+                }
+                else if (data.error == "Passwords do not match") {
+                    toast.info("Password and Confirm Password should be same")
+                    return
+                }
+                else if (data.error == "User already exists with that email. Try loging in") {
+                    toast.info("User already exists with that email. Try loging in")
+                    return
+                }
+                else if (data.error == "Enter Strong Password") {
+                    toast.info("Password must be atleast 8 character long and must contain alteast one uppercase letter, one lowercase letter, one number and one special character!")
+                    return
+                }
+                else if (data.Status == "Sign Up Successful") {
+                    toast.success("Sign Up Successful")
+                    navigate("/signin")
+                    return
+                }
+                else {
+                    toast.error("Sign Up Failed")
+                    return
+                }
+            })
     }
 
     return (
@@ -103,9 +179,9 @@ const Signup = () => {
             <div className='flex w-full h-full'>
                 <div className={`left w-1/2  min-h-screen`} style={{ backgroundColor: `${leftstyle[color_number].backgroundColorLeft}` }}>
                     <div className='flex flex-col items-center justify-center h-full'>
-                        <img src={leftstyle[color_number].singerphoto} alt="" className='w-1/2 mb-5' />
+                        <img src={leftstyle[color_number].singerphoto} alt="" className='w-1/2 mb-5' draggable="false" />
                         <h2 className='text-4xl text-white font-semibold'>All Your Music.</h2>
-                        <h2 className={`text-2xl italic font-semibold`} style={{color:`${leftstyle[color_number].textColorLeft}`}}>Anytime, anywhere.</h2>
+                        <h2 className={`text-2xl italic font-semibold`} style={{ color: `${leftstyle[color_number].textColorLeft}` }}>Anytime, anywhere.</h2>
                     </div>
                 </div>
                 <div className="right w-1/2 bg-[rgb(246,246,246)]">
@@ -153,12 +229,14 @@ const Signup = () => {
                                             }
                                         </div>
                                     </div>
-                                    <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full'>Continue</button>
+                                    <NavLink draggable="false">
+                                        <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full' onClick={() => handleSignupMobile()}>Continue</button>
+                                    </NavLink>
                                 </form>
                                 :
                                 <form action="" className='w-full'>
                                     <div className='relative w-full flex flex-col gap-4 items-center'>
-                                        <input type="text" className='bg-white text-black font-semibold py-3 pl-28 pr-3 rounded-3xl w-full' placeholder='Email Address' value={email} onChange={(e) => setEmail(e.target.value)} />
+                                        <input type="text" className='bg-white text-black font-semibold py-3 pl-3 pr-3 rounded-3xl w-full' placeholder='Email Address' value={email} onChange={(e) => setEmail(e.target.value)} />
                                         <div className='relative flex items-center w-full'>
                                             {(showpassemail) ?
                                                 <>
@@ -188,7 +266,9 @@ const Signup = () => {
                                             }
                                         </div>
                                     </div>
-                                    <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full'>Continue</button>
+                                    <NavLink draggable="false">
+                                        <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full' onClick={(e) => handleSignupEmail()}>Continue</button>
+                                    </NavLink>
                                 </form>
                             }
                             <p className='w-full italic text-xs my-4'>

@@ -6,15 +6,18 @@ import left_image4 from '../../assets/leftimage4.png'
 import left_image5 from '../../assets/leftimage5.png'
 import left_image6 from '../../assets/leftimage6.png'
 import left_image7 from '../../assets/leftimage7.png'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import PhoneInput from 'react-phone-input-2'
-import Logo from '../../assets/logo.svg'
+import Logo from '../../assets/logo.png'
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { toast } from "react-toastify";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Signin = () => {
 
   const [signinMethod, setSigninMethod] = useState("phone")
+
+  const navigate = useNavigate()
 
   const [showpassmobile, setShowpassmobile] = useState(true)
   const [showpassemail, setShowpassemail] = useState(true)
@@ -26,61 +29,123 @@ const Signin = () => {
   const [email, setEmail] = useState("")
 
   const handleSigninMobile = () => {
-    console.log("Signin with mobile");
-    console.log(phoneNumber);
-    console.log(passwordmobile);
+    fetch("http://localhost:5000/signinwithphone", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phone: phoneNumber,
+        password: passwordmobile,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error == "Please fill all the fields") {
+          toast.info("Please fill all the fields");
+          return
+        }
+        else if (data.error == "Invalid phone number") {
+          toast.info("Invalid phone number");
+          return
+        }
+        else if (data.error == "Invalid password") {
+          toast.info("Invalid password");
+          return
+        }
+        else if (data.user) {
+          toast.success("Sign In Successfully");
+          navigate("/");
+          return
+        }
+        else {
+          toast.error("Sign Failed");
+          return
+        }
+      });
   }
 
   const handleSigninEmail = () => {
-    console.log("Signin with email");
-    console.log(email);
-    console.log(passwordemail);
+    fetch("http://localhost:5000/signinwithemail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email,
+        password: passwordemail,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.error == "Please fill all the fields") {
+          toast.info("Please fill all the fields");
+          return
+        }
+        else if (data.error == "Invalid email") {
+          toast.info("Invalid email");
+          return
+        }
+        else if (data.error == "Invalid password") {
+          toast.info("Invalid password");
+          return
+        }
+        else if (data.user) {
+          toast.success("Sign In Successfully");
+          navigate("/home");
+          return
+        }
+        else {
+          toast.error("Sign Failed");
+          return
+        }
+      });
   }
 
   const leftstyle = [
     {
-        singerphoto: left_image1,
-        backgroundColorLeft: 'rgb(49,92,134)',
-        textColorLeft: 'rgb(60,141,218)'
+      singerphoto: left_image1,
+      backgroundColorLeft: 'rgb(49,92,134)',
+      textColorLeft: 'rgb(60,141,218)'
     },
     {
-        singerphoto: left_image2,
-        backgroundColorLeft: 'rgb(100,60,106)',
-        textColorLeft: 'rgb(193,116,205)'
+      singerphoto: left_image2,
+      backgroundColorLeft: 'rgb(100,60,106)',
+      textColorLeft: 'rgb(193,116,205)'
     },
     {
-        singerphoto: left_image3,
-        backgroundColorLeft: 'rgb(120,37,59)',
-        textColorLeft: 'rgb(210,65,103)'
+      singerphoto: left_image3,
+      backgroundColorLeft: 'rgb(120,37,59)',
+      textColorLeft: 'rgb(210,65,103)'
     },
     {
-        singerphoto: left_image4,
-        backgroundColorLeft: 'rgb(186,96,83)',
-        textColorLeft: 'rgb(244,177,153)'
+      singerphoto: left_image4,
+      backgroundColorLeft: 'rgb(186,96,83)',
+      textColorLeft: 'rgb(244,177,153)'
     },
     {
-        singerphoto: left_image5,
-        backgroundColorLeft: 'rgb(142,34,37)',
-        textColorLeft: 'rgb(255,89,94)'
+      singerphoto: left_image5,
+      backgroundColorLeft: 'rgb(142,34,37)',
+      textColorLeft: 'rgb(255,89,94)'
     },
     {
-        singerphoto: left_image6,
-        backgroundColorLeft: 'rgb(81,78,77)',
-        textColorLeft: 'rgb(142,129,122)'
+      singerphoto: left_image6,
+      backgroundColorLeft: 'rgb(81,78,77)',
+      textColorLeft: 'rgb(142,129,122)'
     },
     {
-        singerphoto: left_image7,
-        backgroundColorLeft: 'rgb(24,32,50)',
-        textColorLeft: 'rgb(71,88,125)'
+      singerphoto: left_image7,
+      backgroundColorLeft: 'rgb(24,32,50)',
+      textColorLeft: 'rgb(71,88,125)'
     }
-]
+  ]
 
-const [color_number, setcolor_number] = useState(0)
+  const [color_number, setcolor_number] = useState(0)
 
-useEffect(() => {
+  useEffect(() => {
     const randomNumber = Math.floor(Math.random() * 7)
     setcolor_number(randomNumber)
-}, [])
+  }, [])
 
   return (
     <div className='relative'>
@@ -101,7 +166,7 @@ useEffect(() => {
           <div className='flex flex-col items-center justify-center h-full'>
             <img src={leftstyle[color_number].singerphoto} alt="" className='w-1/2 mb-5' draggable="false" />
             <h2 className='text-4xl text-white font-semibold'>All Your Music.</h2>
-            <h2 className='text-2xl italic font-semibold' style={{color:`${leftstyle[color_number].textColorLeft}`}}>Anytime, anywhere.</h2>
+            <h2 className='text-2xl italic font-semibold' style={{ color: `${leftstyle[color_number].textColorLeft}` }}>Anytime, anywhere.</h2>
           </div>
         </div>
         <div className="right w-1/2 bg-[rgb(246,246,246)]">
@@ -136,8 +201,8 @@ useEffect(() => {
                       }
                     </div>
                   </div>
-                  <NavLink>
-                  <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full' onClick={() => handleSigninMobile()}>Continue</button>
+                  <NavLink draggable="false">
+                    <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full' onClick={() => handleSigninMobile()}>Continue</button>
                   </NavLink>
                 </form>
                 :
@@ -158,7 +223,9 @@ useEffect(() => {
                       }
                     </div>
                   </div>
-                  <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full' onClick={() => handleSigninEmail()}>Continue</button>
+                  <NavLink draggable="false">
+                    <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full' onClick={() => handleSigninEmail()}>Continue</button>
+                  </NavLink>
                 </form>
               }
               <p className='w-full italic text-xs my-4'>

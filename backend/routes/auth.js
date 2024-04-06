@@ -59,7 +59,7 @@ router.post("/signupwithphone", (req, res) => {
             else {
                 bcrypt.hash(password, 10).then((hashedPwd) => {
                     const user = new USER({
-                        phone_numbeer: phone,
+                        phone_number: phone,
                         password: hashedPwd,
                         cpassword: hashedPwd
                     })
@@ -99,13 +99,12 @@ router.post("/signinwithemail", (req, res) => {
                 })
         })
 })
-
-router.post("/signinwithemail", (req, res) => {
+router.post("/signinwithphone", (req, res) => {
     const { phone, password } = req.body;
     if (!phone || !password) {
         return res.status(422).json({ error: "Please fill all the fields" })
     }
-    USER.findOne({ phone_numbeer: phone })
+    USER.findOne({ phone_number: phone })
         .then((savedUser) => {
             if (!savedUser) {
                 return res.status(422).json({ error: "Invalid phone number" })
