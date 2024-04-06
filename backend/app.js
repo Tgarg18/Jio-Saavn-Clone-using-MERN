@@ -7,7 +7,11 @@ const cors = require('cors');
 
 app.use(cors());
 
+require("./models/model")
+
 app.use(express.json())
+
+app.use(require('./routes/auth'))
 
 mongoose.connect(mongourl)
 
@@ -17,8 +21,6 @@ mongoose.connection.on('connected',  ()=> {
 mongoose.connection.on('error', () => {
     console.log("Not connected");
 })
-
-
 
 app.listen(port, () => {
     console.log(`Running at Port: ${port}`)
