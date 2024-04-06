@@ -4,6 +4,7 @@ const { ObjectId } = mongoose.Schema.Types
 const userSchema = mongoose.Schema({
     name: {
         type: String,
+        default: "user"+Math.floor(Math.random()*10000)
     },
     email: {
         type: String,
