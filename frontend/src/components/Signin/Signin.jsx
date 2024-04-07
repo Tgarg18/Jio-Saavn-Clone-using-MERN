@@ -92,7 +92,7 @@ const Signin = () => {
         }
         else if (data.user) {
           toast.success("Sign In Successfully");
-          navigate("/home");
+          navigate("/");
           return
         }
         else {

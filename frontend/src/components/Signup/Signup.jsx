@@ -13,7 +13,6 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { toast } from "react-toastify";
-import { notify } from '../../../../backend/routes/auth'
 
 
 const Signup = () => {
