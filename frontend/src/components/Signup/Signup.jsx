@@ -164,10 +164,12 @@ const Signup = () => {
     return (
         <div className='relative'>
             <div className='flex h-[10vh] bg-none w-full items-center justify-between px-5 z-10 absolute top-0'>
-                <div className='flex items-center gap-2'>
-                    <img src={Logo} alt="" className='w-10' draggable="false" />
-                    <div className='text-xl font-semibold text-white'>JioSaavn</div>
-                </div>
+                <NavLink to={"/"} draggable="false">
+                    <div className='flex items-center gap-2'>
+                        <img src={Logo} alt="" className='w-10' draggable="false" />
+                        <div className='text-xl font-semibold text-white'>JioSaavn</div>
+                    </div>
+                </NavLink>
                 <div className='flex gap-4 items-center justify-center'>
                     <div className='text-xs'>Already have an account?</div>
                     <NavLink to={"/signin"} draggable="false">

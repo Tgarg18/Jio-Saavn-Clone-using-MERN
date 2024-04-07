@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Signup from './components/Signup/Signup'
+import MusicContext from './context/MusicContext'
 import Signin from './components/Signin/Signin'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,10 +12,14 @@ import Playlist from './components/Home/Main/Playlist'
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentAudio, setCurrentAudio] = useState("")
+  const [currentsong, setCurrentsong] = useState("")
+  const [currentPlaylist, setCurrentPlaylist] = useState("")
+  const [isplaying, setIsplaying] = useState(false)
 
   return (
     <>
+    <MusicContext.Provider value={{currentAudio,setCurrentAudio,currentPlaylist,setCurrentPlaylist,isplaying,setIsplaying,currentsong,setCurrentsong}}>
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<Home />}>
@@ -26,6 +31,7 @@ function App() {
         </Routes>
         <ToastContainer />
       </BrowserRouter>
+    </MusicContext.Provider>
     </>
   )
 }

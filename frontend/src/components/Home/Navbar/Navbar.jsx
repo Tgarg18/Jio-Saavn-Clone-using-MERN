@@ -8,10 +8,12 @@ const Navbar = () => {
         <>
             <nav className='bg-[rgb(246,246,246)] flex items-center justify-between px-5 py-3 border-none lg:border fixed top-0 left-0 w-full z-20'>
                 <div className='flex flex-col lg:flex-row justify-between items-center mx-auto lg:mx-0 gap-4'>
-                    <div className='flex items-center'>
-                        <img src={logo} alt="" className='w-10' draggable="false" />
-                        <div className='text-xl font-bold text-black'>JioSaavn</div>
-                    </div>
+                    <NavLink to={"/"} draggable="false">
+                        <div className='flex items-center'>
+                            <img src={logo} alt="" className='w-10' draggable="false" />
+                            <div className='text-xl font-bold text-black'>JioSaavn</div>
+                        </div>
+                    </NavLink>
                     <div className='flex text-[24px] lg:text-[15px] gap-5 text-gray-600 font-semibold h-full'>
                         <li className='list-none '>Music</li>
                         <li className='list-none '>Podcasts</li>
