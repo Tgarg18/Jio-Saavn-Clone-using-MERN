@@ -6,6 +6,8 @@ import Signin from './components/Signin/Signin'
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Home from './components/Home/Home'
+import PlaylistsContainer from './components/Home/Main/PlaylistsContainer'
+import Playlist from './components/Home/Main/Playlist'
 
 
 function App() {
@@ -13,10 +15,12 @@ function App() {
 
   return (
     <>
-      {/* <Signup/> */}
       <BrowserRouter>
         <Routes>
-          <Route exact path='/' element={<Home />} />
+          <Route exact path='/' element={<Home />}>
+            <Route path='' element={<PlaylistsContainer/>} />
+            <Route path=':playlistid' element={<Playlist/>} />
+          </Route>
           <Route path='/signup' element={<Signup />} />
           <Route path='/signin' element={<Signin />} />
         </Routes>

@@ -26,6 +26,7 @@ router.post("/signupwithemail", (req, res) => {
             else {
                 bcrypt.hash(password, 10).then((hashedPwd) => {
                     const user = new USER({
+                        name: email.split('@')[0],
                         email,
                         password: hashedPwd,
                         cpassword: hashedPwd

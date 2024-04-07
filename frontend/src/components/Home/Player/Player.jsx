@@ -12,11 +12,11 @@ const Player = () => {
     const [showVolume, setShowVolume] = useState(false)
   return (
     <>
-    <div className='fixed bottom-0 left-0 right-0 flex flex-col'>
+    <div className='fixed bottom-0 left-0 right-0 flex flex-col z-10 bg-[rgb(246,246,246)]'>
         <input type="range" name="progress" id="slider" min={0} max={100} step={0.1} value={0} className='w-full h-[5px] text-green-400 range' />
         <div className='flex justify-between items-center px-3 mb-3'>
             <div className='flex justify-start items-center gap-3 lg:w-[30vw]'>
-                <img src={cover} alt="" width={55} className='rounded-lg' />
+                <img src={cover} alt="" width={55} className='rounded-lg' draggable="false" />
                 <div className='hidden lg:block'>
                     <span>Lorem, ipsum.</span>
                     <p className='text-xs text-gray-500'>Lorem ipsum dolor sit amet.</p>

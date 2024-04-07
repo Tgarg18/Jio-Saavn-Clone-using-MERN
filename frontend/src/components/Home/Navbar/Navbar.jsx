@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../../../assets/logo.png'
-import {MdKeyboardArrowDown} from 'react-icons/md'
+import { MdKeyboardArrowDown } from 'react-icons/md'
+import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
     return (
@@ -31,8 +32,26 @@ const Navbar = () => {
                         <MdKeyboardArrowDown className='text-xl text-gray-500 mt-2' />
                     </div>
                     <div className='flex text-[15px] text-gray-600 font-semibold gap-5'>
-                        <li className='list-none'>Log In</li>
-                        <li className='list-none'>Sign Up</li>
+                        {(localStorage.getItem('jwt')) ?
+                            <>
+                                <li className='list-none'>{JSON.parse(localStorage.getItem('user')).name}</li>
+                                <NavLink to={'/signin'} onClick={() => {
+                                    localStorage.removeItem('jwt')
+                                    localStorage.removeItem('user')
+                                }}>
+                                    <li className='list-none text-red-500'>Log Out</li>
+                                </NavLink>
+                            </>
+                            :
+                            <>
+                                <NavLink to={'/signin'}>
+                                    <li className='list-none'>Log In</li>
+                                </NavLink>
+                                <NavLink to={'/signup'}>
+                                    <li className='list-none'>Sign Up</li>
+                                </NavLink>
+                            </>
+                        }
                     </div>
                 </div>
 
