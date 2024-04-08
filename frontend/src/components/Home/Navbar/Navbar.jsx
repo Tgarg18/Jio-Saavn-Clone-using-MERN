@@ -14,7 +14,7 @@ const Navbar = () => {
                             <div className='text-xl font-bold text-black'>JioSaavn</div>
                         </div>
                     </NavLink>
-                    <div className='flex text-[24px] lg:text-[15px] gap-5 text-gray-600 font-semibold h-full'>
+                    <div className='hidden lg:flex text-[24px] lg:text-[15px] gap-5 text-gray-600 font-semibold h-full'>
                         <li className='list-none '>Music</li>
                         <li className='list-none '>Podcasts</li>
                         <li className='list-none '>Go Pro</li>
@@ -25,8 +25,8 @@ const Navbar = () => {
                     <input type="text" name="search" id="search" className='py-2 rounded-full w-[40vw] outline-none text-center border text-black' placeholder='Search for songs' />
                 </div>
 
-                <div className='hidden lg:flex justify-between items-center gap-4'>
-                    <div className='flex justify-center gap-2'>
+                <div className='flex justify-between items-center gap-4'>
+                    <div className='hidden lg:flex justify-center gap-2'>
                         <div className='flex flex-col text-sm'>
                             <span className='text-[14px] text-gray-600 font-semibold'>Music Languages</span>
                             <span className='text-[12px] text-gray-500'>Hindi</span>
@@ -36,22 +36,22 @@ const Navbar = () => {
                     <div className='flex text-[15px] text-gray-600 font-semibold gap-5'>
                         {(localStorage.getItem('jwt')) ?
                             <>
-                                <NavLink to={'/profile'}>
+                                <NavLink to={'/profile'} draggable="false">
                                     <li className='list-none'>{JSON.parse(localStorage.getItem('user')).name}</li>
                                 </NavLink>
                                 <NavLink to={'/signin'} onClick={() => {
                                     localStorage.removeItem('jwt')
                                     localStorage.removeItem('user')
-                                }}>
+                                }} draggable="false">
                                     <li className='list-none text-red-500'>Log Out</li>
                                 </NavLink>
                             </>
                             :
                             <>
-                                <NavLink to={'/signin'}>
+                                <NavLink to={'/signin'} draggable="false">
                                     <li className='list-none'>Log In</li>
                                 </NavLink>
-                                <NavLink to={'/signup'}>
+                                <NavLink to={'/signup'} draggable="false">
                                     <li className='list-none'>Sign Up</li>
                                 </NavLink>
                             </>

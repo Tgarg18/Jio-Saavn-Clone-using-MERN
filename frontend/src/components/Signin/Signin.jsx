@@ -166,7 +166,7 @@ const Signin = () => {
         </div>
       </div>
       <div className='flex w-full h-full'>
-        <div className="left w-1/2 min-h-screen" style={{ backgroundColor: `${leftstyle[color_number].backgroundColorLeft}` }}>
+        <div className="left hidden lg:block w-1/2 min-h-screen" style={{ backgroundColor: `${leftstyle[color_number].backgroundColorLeft}` }}>
           <div className='flex flex-col items-center justify-center h-full'>
             <img src={leftstyle[color_number].singerphoto} alt="" className='w-1/2 mb-5' draggable="false" />
             <h2 className='text-4xl text-white font-semibold'>All Your Music.</h2>

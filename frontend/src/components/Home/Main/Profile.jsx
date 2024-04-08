@@ -9,12 +9,12 @@ const Profile = () => {
                 <div className='text-3xl font-bold'>
                     My Profile
                 </div>
-                <div className='flex items-center justify-start gap-10'>
+                <div className='flex items-center justify-center lg:justify-start gap-10'>
                     <div>
-                        <img src={usericon} alt="" width={250} className='rounded-full shadow-2xl' draggable="false" />
+                        <img src={usericon} alt="" className='ml-7 rounded-full shadow-2xl w-[250px] max-w-20 lg:max-w-none' draggable="false" />
                     </div>
                     <div className='flex flex-col gap-2'>
-                        <div className='text-[50px] font-bold'>
+                        <div className='text-3xl lg:text-[50px] font-bold'>
                             {JSON.parse(localStorage.getItem('user')).name}
                         </div>
                         <div className='text-lg'>

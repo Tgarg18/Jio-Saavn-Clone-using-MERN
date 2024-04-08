@@ -178,20 +178,20 @@ const Signup = () => {
                 </div>
             </div>
             <div className='flex w-full h-full'>
-                <div className={`left w-1/2  min-h-screen`} style={{ backgroundColor: `${leftstyle[color_number].backgroundColorLeft}` }}>
+                <div className={`left hidden lg:block w-1/2  min-h-screen`} style={{ backgroundColor: `${leftstyle[color_number].backgroundColorLeft}` }}>
                     <div className='flex flex-col items-center justify-center h-full'>
                         <img src={leftstyle[color_number].singerphoto} alt="" className='w-1/2 mb-5' draggable="false" />
                         <h2 className='text-4xl text-white font-semibold'>All Your Music.</h2>
                         <h2 className={`text-2xl italic font-semibold`} style={{ color: `${leftstyle[color_number].textColorLeft}` }}>Anytime, anywhere.</h2>
                     </div>
                 </div>
-                <div className="right w-1/2 bg-[rgb(246,246,246)]">
+                <div className="right mt-32 lg:mt-0 w-full lg:w-1/2 bg-[rgb(246,246,246)]">
                     <div className='flex flex-col items-center justify-center h-full'>
-                        <div className='flex flex-col items-start justify-center w-1/2'>
+                        <div className='flex flex-col items-start justify-center w-4/5 lg:w-1/2'>
                             <h1 className='text-4xl font-semibold'>Welcome to JioSaavn.</h1>
                             <h4>Sign up with your {(signupMethod == "phone") ? "mobile number." : "email address."}</h4>
                         </div>
-                        <div className='flex flex-col items-start justify-center w-1/2 mt-7'>
+                        <div className='flex flex-col items-start justify-center w-4/5 lg:w-1/2 mt-7'>
                             {(signupMethod == "phone") ?
                                 <form action="" className='w-full'>
                                     <div className='relative w-full flex items-center flex-col justify-center gap-4'>

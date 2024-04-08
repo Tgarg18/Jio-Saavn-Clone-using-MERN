@@ -21,11 +21,12 @@ const PlaylistsContainer = () => {
             <div>
                 <div className='flex flex-col gap-2'>
                     <div className='text-2xl font-bold text-gray-700 mb-2'>Playlists</div>
-                    <div className='album-container flex flex-wrap gap-3'>
+                    <div className='album-container flex justify-center items-center flex-wrap gap-3 mb-56 lg:mb-3'>
                         {
                             playlist_array.map((playlist, index) => {
                                 return (
-                                    <div key={index} className='w-[200px] h-[200px]'>
+                                    // <div key={index} className='w-[200px] h-[200px]'>
+                                    <div key={index} className='flex flex-col'>
                                         <NavLink to={`/${playlist._id}`}>
                                             <img src={playlist.cover_image} alt="Album Cover" className='w-[200px] h-[200px] rounded-md' draggable="false" />
                                             <div className='text-center font-semibold'>{playlist.name}</div>
