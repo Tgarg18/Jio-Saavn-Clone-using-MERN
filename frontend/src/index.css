@@ -20,7 +20,7 @@ body{
 input[type="range"]{
   -webkit-appearance: none;
   width: 100%;
-  margin-bottom: 13.8px;
+  margin-bottom: 5px;
   background-color: #e8e8e8ff;
 }
 
