@@ -12,14 +12,15 @@ import Playlist from './components/Home/Main/Playlist'
 
 
 function App() {
-  const [currentAudio, setCurrentAudio] = useState("")
+  const [currentAudio, setCurrentAudio] = useState([])
   const [currentsong, setCurrentsong] = useState("")
   const [currentPlaylist, setCurrentPlaylist] = useState("")
   const [isplaying, setIsplaying] = useState(false)
+  const [songnumber, setSongnumber] = useState(0)
 
   return (
     <>
-    <MusicContext.Provider value={{currentAudio,setCurrentAudio,currentPlaylist,setCurrentPlaylist,isplaying,setIsplaying,currentsong,setCurrentsong}}>
+    <MusicContext.Provider value={{currentAudio,setCurrentAudio,currentPlaylist,setCurrentPlaylist,isplaying,setIsplaying,currentsong,setCurrentsong, songnumber, setSongnumber}}>
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<Home />}>

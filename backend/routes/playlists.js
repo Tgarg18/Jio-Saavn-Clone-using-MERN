@@ -120,15 +120,18 @@ router.post("/uploadplaylist4", (req, res) => {
         songs: [
             {
                 song_name: "Brown Rang",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507763/Brown_Rang_drxcc8.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507763/Brown_Rang_drxcc8.mp3",
+                totalTime: "179"
             },
             {
                 song_name: "Dope Shope",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507764/Dope_Shope_leyb89.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507764/Dope_Shope_leyb89.mp3",
+                totalTime: "188"
             },
             {
                 song_name: "Gabru",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507764/Gabru_bv3sdn.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507764/Gabru_bv3sdn.mp3",
+                totalTime: "206"
             }
         ]
     });

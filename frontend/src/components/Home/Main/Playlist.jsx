@@ -1,9 +1,9 @@
-import React, { useEffect, useState,useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import MusicContext from '../../../context/MusicContext'
 
 const Playlist = () => {
-    const {currentAudio,setCurrentAudio,currentPlaylist,setCurrentPlaylist,isplaying,setIsplaying, currentsong,setCurrentsong} = useContext(MusicContext)
+    const { currentAudio, setCurrentAudio, currentPlaylist, setCurrentPlaylist, isplaying, setIsplaying, currentsong, setCurrentsong, songnumber, setSongnumber } = useContext(MusicContext)
     const { playlistid } = useParams()
     const [playlist, setPlaylist] = useState({
         name: "",
@@ -21,7 +21,7 @@ const Playlist = () => {
         }).then((res) => res.json())
             .then((data) => {
                 setPlaylist(data)
-                setCurrentPlaylist(data)
+
             })
     }, [])
     return (
@@ -36,7 +36,7 @@ const Playlist = () => {
             <div className='mt-7'>
                 {playlist.songs.map((song, index) => {
                     return (
-                        <div key={index} className='flex py-2 justify-between hover:bg-white px-4' onClick={() => { setCurrentAudio(song.audio); setIsplaying(true); setCurrentsong(song.song_name) }}>
+                        <div key={index} className='flex py-2 justify-between hover:bg-white px-4' onClick={() => { setCurrentAudio(playlist.songs); setIsplaying(true); setCurrentsong(song.song_name); setCurrentPlaylist(playlist); setSongnumber(index) }}>
                             <div className='flex gap-8'>
                                 <div>{index + 1}</div>
                                 <div>{song.song_name}</div>

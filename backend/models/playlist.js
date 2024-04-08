@@ -16,6 +16,9 @@ const playlistSchema = mongoose.Schema({
         },
         audio: {
             type: String
+        },
+        totalTime:{
+            type:String
         }
     }]
 })
