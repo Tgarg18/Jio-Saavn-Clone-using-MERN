@@ -24,11 +24,7 @@ const userSchema = mongoose.Schema({
     phone_number: {
         type: String,
         default: ""
-    },
-    myplaylist: [{
-        type: ObjectId,
-        ref: "POST"
-    }]
+    }
 });
 
 mongoose.model('USER', userSchema);

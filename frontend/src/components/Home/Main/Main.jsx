@@ -11,8 +11,8 @@ import axios from 'axios'
 const Main = () => {
   return (
     <>
-      <div className='w-full h-[100vh] flex'>
-        <div className="left w-[15%] h-[100vh] px-10 py-24 border-2 border-gray-300 hidden md:px-4 lg:block">
+      <div className='w-full h-[100vh] flex relative'>
+        <div className="left w-[15%] h-[100vh] px-10 py-24 border-2 fixed border-gray-300 hidden md:px-4 lg:block">
           <div className='flex flex-col gap-3'>
             <div className='font-bold text-gray-400'>Browse</div>
             <div className='flex flex-col pl-9 gap-2'>
@@ -56,7 +56,7 @@ const Main = () => {
             </div>
           </div>
         </div>
-        <div className="right w-[80%] h-[100vh] px-10 py-24">
+        <div className="right w-[80%] h-[100vh] px-10 py-24 lg:absolute lg:left-60">
             <Outlet/>
         </div>
       </div>

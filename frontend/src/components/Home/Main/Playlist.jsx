@@ -33,7 +33,7 @@ const Playlist = () => {
                     <div className='text-xl'>By {playlist.artist}. {playlist.songs.length} Songs</div>
                 </div>
             </div>
-            <div className='mt-7'>
+            <div className='mt-7 overflow-scroll h-auto pb-32'>
                 {playlist.songs.map((song, index) => {
                     return (
                         <div key={index} className='flex py-2 justify-between hover:bg-white px-4' onClick={() => { setCurrentAudio(playlist.songs); setIsplaying(true); setCurrentsong(song.song_name); setCurrentPlaylist(playlist); setSongnumber(index) }}>

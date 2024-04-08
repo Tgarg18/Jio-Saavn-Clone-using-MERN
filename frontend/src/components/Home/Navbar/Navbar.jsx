@@ -36,7 +36,9 @@ const Navbar = () => {
                     <div className='flex text-[15px] text-gray-600 font-semibold gap-5'>
                         {(localStorage.getItem('jwt')) ?
                             <>
-                                <li className='list-none'>{JSON.parse(localStorage.getItem('user')).name}</li>
+                                <NavLink to={'/profile'}>
+                                    <li className='list-none'>{JSON.parse(localStorage.getItem('user')).name}</li>
+                                </NavLink>
                                 <NavLink to={'/signin'} onClick={() => {
                                     localStorage.removeItem('jwt')
                                     localStorage.removeItem('user')

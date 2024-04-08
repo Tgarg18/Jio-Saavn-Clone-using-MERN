@@ -2,7 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const app = express()
 const router = express.Router()
+const requireLogin = require('../middlewares/requireLogin');
 const PLAYLIST = mongoose.model("PLAYLIST");
+const USER = mongoose.model("USER");
 
 router.post('/', () => {
     console.log("hello");
@@ -17,27 +19,33 @@ router.post('/uploadplaylist1', (req, res) => {
         songs: [
             {
                 song_name: "100 Million",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506969/100_Million_qlkrex.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506969/100_Million_qlkrex.mp3",
+                totalTime: '192'
             },
             {
                 song_name: "Hisaab",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506967/Hisaab_ybm2rw.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506967/Hisaab_ybm2rw.mp3",
+                totalTime: '207'
             },
             {
                 song_name: "Nothing Lasts",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506966/Nothing_Lasts_h7bhyn.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506966/Nothing_Lasts_h7bhyn.mp3",
+                totalTime: '176'
             },
             {
                 song_name: "Straight Ballin",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506971/Straight_Ballin_vpc4a8.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506971/Straight_Ballin_vpc4a8.mp3",
+                totalTime: '211'
             },
             {
                 song_name: "Tareefan",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506967/Tareefan_kim8lh.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506967/Tareefan_kim8lh.mp3",
+                totalTime: '174'
             },
             {
                 song_name: "Top Class / Overseas",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506972/Top_Class_Overseas_n3ghrw.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712506972/Top_Class_Overseas_n3ghrw.mp3",
+                totalTime: '288'
             }
         ]
     });
@@ -60,15 +68,18 @@ router.post('/uploadplaylist2', (req, res) => {
         songs: [
             {
                 song_name: "Glorious",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507499/Glorious_e7uewr.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507499/Glorious_e7uewr.mp3",
+                totalTime: "163"
             },
             {
                 song_name: "Suits You",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507499/Suits_You_dwdwz7.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507499/Suits_You_dwdwz7.mp3",
+                totalTime: "172"
             },
             {
                 song_name: "Woah",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507507/Woah_f6d73d.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507507/Woah_f6d73d.mp3",
+                totalTime: "174"
             }
         ]
     });
@@ -90,15 +101,18 @@ router.post('/uploadplaylist3', (req, res) => {
         songs: [
             {
                 song_name: "Born To Shine",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507632/Born_To_Shine_y3hk8o.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507632/Born_To_Shine_y3hk8o.mp3",
+                totalTime: "213"
             },
             {
                 song_name: "Clash",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507632/Clash_rdwwq5.mp3"
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507632/Clash_rdwwq5.mp3",
+                totalTime: "176"
             },
             {
-                song_name: "Goat",
-                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507641/Goat_svw2cq.mp3"
+                song_name: "G.O.A.T.",
+                audio: "https://res.cloudinary.com/wittywebcloud/video/upload/v1712507641/Goat_svw2cq.mp3",
+                totalTime: "223"
             }
         ]
     });
@@ -167,5 +181,6 @@ router.post("/getsongs", (req, res) => {
             console.error("Error saving playlist:", err);
         });
 })
+
 
 module.exports = router;

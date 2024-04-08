@@ -13,7 +13,6 @@ const PlaylistsContainer = () => {
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data);
                 setPlaylist_array(data)
             })
     }, [])

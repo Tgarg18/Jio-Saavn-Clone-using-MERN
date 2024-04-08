@@ -1,5 +1,6 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-import { BiRepeat } from 'react-icons/bi';
+import { BsRepeat } from "react-icons/bs";
+import { BsRepeat1 } from "react-icons/bs";
 import { IoMdSkipBackward, IoMdSkipForward } from 'react-icons/io';
 import { PiShuffleBold } from 'react-icons/pi';
 import { FaPlay, FaPause } from 'react-icons/fa';
@@ -18,13 +19,14 @@ const Player = () => {
     const [volume, setVolume] = useState(100);
     const [curtim, setCurTim] = useState(0);
     const [isSeeking, setIsSeeking] = useState(false);
+    const [repeatStatus, setRepeatStatus] = useState("off");
+    const [shuffleStatus, setShuffleStatus] = useState("off");
 
     const handleTimeUpdate = (e) => {
         const currentTime = e.target.currentTime;
-        const duration = Number(currentAudio[songnumber].totalTime);
-        setCurTim(currentTime); // Update current time
+        const duration = Number(currentAudio[songnumber]);
+        setCurTim(currentTime);
 
-        // Update slider position if not seeking
         if (!isSeeking) {
             const percent = (currentTime / duration) * 100;
             sliderRef.current.style.background = `linear-gradient(to right, cyan ${percent}%, #ccc ${percent}%)`;
@@ -33,17 +35,17 @@ const Player = () => {
     };
 
     useEffect(() => {
-        // Update current time on audio load
         myaudio.current.addEventListener('timeupdate', handleTimeUpdate);
-        return () => myaudio.current.removeEventListener('timeupdate', handleTimeUpdate);
+        return () => myaudio.current?.removeEventListener('timeupdate', handleTimeUpdate);
     }, [songnumber]);
     useEffect(() => {
-        // Set volume
         myaudio.current.volume = volume / 100;
         myaudio.current.muted = isMuted;
     }, [volume]);
 
     const formatTime = (time) => {
+        if (!time)
+            return `0:00`;
         const minutes = Math.floor(time / 60);
         const seconds = Math.floor(time % 60);
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
@@ -67,11 +69,23 @@ const Player = () => {
         setIsMuted(!isMuted);
     };
 
-
+    const handleEnded = () => {
+        if (repeatStatus === "current") {
+            myaudio.current.currentTime = 0;
+            myaudio.current.play();
+        } else if (repeatStatus === "all") {
+            if (songnumber === currentAudio.length - 1) {
+                setSongnumber(0);
+            } else {
+                setSongnumber(songnumber + 1);
+            }
+        } else {
+        }
+    };
 
     return (
         <>
-            <audio src={currentAudio[songnumber]?.audio} controls autoPlay hidden={true} ref={myaudio} onEnded={() => { setSongnumber(songnumber + 1) }} />
+            <audio src={currentAudio[songnumber]?.audio} controls autoPlay hidden={true} ref={myaudio} onEnded={handleEnded} />
             <div className='fixed bottom-0 left-0 right-0 flex flex-col z-10 bg-[rgb(246,246,246)]'>
                 <input
                     type="range"
@@ -100,29 +114,49 @@ const Player = () => {
                             <p className='text-xs text-gray-500'>{currentPlaylist.artist}</p>
                         </div>
                     </div>
-                    <div className='flex text-2xl lg:text-3xl gap-4 lg:gap-6 lg:w-[40vw] justify-center'>
-                        <BiRepeat className='text-gray-400 cursor-pointer' />
-                        <IoMdSkipBackward className='text-gray-700 hover:text-gray-500 cursor-pointer' onClick={() => { if (songnumber !== 0) setSongnumber(songnumber - 1) }} />
+                    <div className='flex text-2xl lg:text-3xl gap-4 lg:gap-6 lg:w-[40vw] justify-center items-center'>
+                        {(repeatStatus == "off") ?
+                            <BsRepeat className='text-gray-400 text-2xl cursor-pointer' onClick={() => { setRepeatStatus("all") }} />
+                            :
+                            (repeatStatus == "all") ?
+                                <BsRepeat className='text-cyan-400 text-2xl cursor-pointer' onClick={() => { setRepeatStatus("current") }} />
+                                :
+                                <BsRepeat1 className='text-cyan-400 text-2xl cursor-pointer' onClick={() => { setRepeatStatus("off") }} />
+                        }
+                        <IoMdSkipBackward className='text-gray-700 hover:text-gray-500 cursor-pointer' onClick={() => {
+                            if (songnumber !== 0)
+                                setSongnumber(songnumber - 1)
+                        }} />
                         {isplaying ? (
                             <FaPause className='text-gray-700 hover:text-gray-500 cursor-pointer' onClick={() => { myaudio.current.pause(); setIsplaying(!isplaying); }} />
                         ) : (
                             <FaPlay className='text-gray-700 hover:text-gray-500 cursor-pointer' onClick={() => { myaudio.current.play(); setIsplaying(!isplaying); }} />
                         )}
-                        <IoMdSkipForward className='text-gray-700 hover:text-gray-500 cursor-pointer' onClick={() => { if (songnumber !== currentAudio.length - 1) setSongnumber(songnumber + 1) }} />
-                        <PiShuffleBold className='text-gray-400 cursor-pointer' />
+                        <IoMdSkipForward className='text-gray-700 hover:text-gray-500 cursor-pointer' onClick={() => {
+                            if (repeatStatus == "off") {
+                                if (songnumber !== currentAudio.length - 1)
+                                    setSongnumber(songnumber + 1)
+                            }
+                            else
+                                handleEnded()
+                        }} />
+                        {(shuffleStatus == "off") ?
+                            <PiShuffleBold className='text-gray-400 text-2xl cursor-pointer' onClick={() => { setShuffleStatus("on") }} />
+                            :
+                            <PiShuffleBold className='text-cyan-400 text-2xl cursor-pointer' onClick={() => { setShuffleStatus("off") }} />
+                        }
                     </div>
                     <div className='flex items-center lg:w-[30vw] justify-end'>
-                        <LuHardDriveDownload className='text-gray-700 hover:text-gray-500 cursor-pointer text-2xl lg:text-3xl lg:mr-2' />
-                        {(isMuted) ? 
-                        <HiSpeakerXMark onClick={()=>{
-                            setVolume(50)
-                            toggleMute()
-                        }} className='text-gray-700 hover:text-gray-500 cursor-pointer text-2xl lg:text-3xl hidden lg:block' onMouseEnter={() => setShowVolume(true)} onMouseLeave={() => setShowVolume(false)} />
-                        :
-                        <HiSpeakerWave onClick={()=>{
-                            setVolume(0)
-                            toggleMute()
-                        }} className='text-gray-700 hover:text-gray-500 cursor-pointer text-2xl lg:text-3xl hidden lg:block' onMouseEnter={() => setShowVolume(true)} onMouseLeave={() => setShowVolume(false)} />
+                        {(isMuted) ?
+                            <HiSpeakerXMark onClick={() => {
+                                setVolume(50)
+                                toggleMute()
+                            }} className='text-gray-700 hover:text-gray-500 cursor-pointer text-2xl lg:text-3xl hidden lg:block' onMouseEnter={() => setShowVolume(true)} onMouseLeave={() => setShowVolume(false)} />
+                            :
+                            <HiSpeakerWave onClick={() => {
+                                setVolume(0)
+                                toggleMute()
+                            }} className='text-gray-700 hover:text-gray-500 cursor-pointer text-2xl lg:text-3xl hidden lg:block' onMouseEnter={() => setShowVolume(true)} onMouseLeave={() => setShowVolume(false)} />
                         }
                         <VolumeController setIsMuted={setIsMuted} showVolume={showVolume} setShowVolume={setShowVolume} volume={volume} setVolume={setVolume} />
                     </div>
