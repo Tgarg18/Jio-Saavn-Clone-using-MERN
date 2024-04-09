@@ -173,13 +173,13 @@ const Signin = () => {
             <h2 className='text-2xl italic font-semibold' style={{ color: `${leftstyle[color_number].textColorLeft}` }}>Anytime, anywhere.</h2>
           </div>
         </div>
-        <div className="right w-1/2 bg-[rgb(246,246,246)]">
+        <div className="right mt-32 lg:mt-0 w-full lg:w-1/2 bg-[rgb(246,246,246)]">
           <div className='flex flex-col items-center justify-center h-full'>
-            <div className='flex flex-col items-start justify-center w-1/2'>
+            <div className='flex flex-col items-start justify-center w-4/5 lg:w-1/2'>
               <h1 className='text-4xl font-semibold'>Welcome to JioSaavn.</h1>
               <h4>Log in or Sign up with your {(signinMethod == "phone") ? "mobile number." : "email address."}</h4>
             </div>
-            <div className='flex flex-col items-start justify-center w-1/2 mt-7'>
+            <div className='flex flex-col items-start justify-center w-4/5 lg:w-1/2 mt-7'>
               {(signinMethod == "phone") ?
                 <form action="" className='w-full'>
                   <div className='relative w-full flex items-center flex-col gap-4'>
