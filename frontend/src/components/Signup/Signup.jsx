@@ -79,7 +79,7 @@ const Signup = () => {
     }, [])
 
     const handleSignupMobile = () => {
-        fetch("http://localhost:5000/signupwithphone", {
+        fetch("https://jio-saavn-clone-using-mern.onrender.com/signupwithphone", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -123,7 +123,7 @@ const Signup = () => {
             notify.info("Enter a correct Email")
             return
         }
-        fetch("http://localhost:5000/signupwithemail", {
+        fetch("https://jio-saavn-clone-using-mern.onrender.com/signupwithemail", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

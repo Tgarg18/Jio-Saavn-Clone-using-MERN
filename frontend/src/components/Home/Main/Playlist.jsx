@@ -19,7 +19,7 @@ const Playlist = () => {
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
     useEffect(() => {
-        fetch("http://localhost:5000/getsongs", {
+        fetch("https://jio-saavn-clone-using-mern.onrender.com/getsongs", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

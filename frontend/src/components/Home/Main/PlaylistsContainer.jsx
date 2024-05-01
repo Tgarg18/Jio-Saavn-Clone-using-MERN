@@ -6,7 +6,7 @@ const PlaylistsContainer = () => {
     const { searchquery, setSearchquery } = useContext(MusicContext)
     const [playlist_array, setPlaylist_array] = useState([])
     useEffect(() => {
-        fetch("http://localhost:5000/getallplaylists", {
+        fetch("https://jio-saavn-clone-using-mern.onrender.com/getallplaylists", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

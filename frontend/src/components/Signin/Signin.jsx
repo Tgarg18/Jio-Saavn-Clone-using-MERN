@@ -29,7 +29,7 @@ const Signin = () => {
   const [email, setEmail] = useState("")
 
   const handleSigninMobile = () => {
-    fetch("http://localhost:5000/signinwithphone", {
+    fetch("https://jio-saavn-clone-using-mern.onrender.com/signinwithphone", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -66,7 +66,7 @@ const Signin = () => {
   }
 
   const handleSigninEmail = () => {
-    fetch("http://localhost:5000/signinwithemail", {
+    fetch("https://jio-saavn-clone-using-mern.onrender.com/signinwithemail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
