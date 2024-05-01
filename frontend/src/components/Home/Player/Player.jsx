@@ -103,8 +103,8 @@ const Player = () => {
                     style={{ background: `linear-gradient(to right, cyan ${(curtim / currentAudio[songnumber]?.totalTime) * 100}%, #ccc ${(curtim / currentAudio[songnumber]?.totalTime) * 100}%)` }}
                 />
                 <div className='flex justify-between items-center px-2'>
-                    <div id='time'>{formatTime(curtim)}</div>
-                    <div>{formatTime(Number(currentAudio[songnumber]?.totalTime))}</div>
+                    <div id='time' className='text-[var(--text)]'>{formatTime(curtim)}</div>
+                    <div className='text-[var(--text)]'>{formatTime(Number(currentAudio[songnumber]?.totalTime))}</div>
                 </div>
                 <div className='flex justify-between items-center px-3 mb-3'>
                     <div className='flex justify-start items-center gap-3 lg:w-[30vw]'>
