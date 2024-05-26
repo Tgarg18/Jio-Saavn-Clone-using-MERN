@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useContext } from 'react'
 import MusicContext from '../../../context/MusicContext'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const PlaylistsContainer = () => {
-    const { searchquery, setSearchquery } = useContext(MusicContext)
+    const { searchquery } = useContext(MusicContext)
     const [playlist_array, setPlaylist_array] = useState([])
+
     useEffect(() => {
         fetch("https://jio-saavn-clone-using-mern.onrender.com/getallplaylists", {
             method: "POST",
@@ -17,6 +18,7 @@ const PlaylistsContainer = () => {
                 setPlaylist_array(data)
             })
     }, [])
+
     return (
         <>
             <div>
@@ -41,7 +43,7 @@ const PlaylistsContainer = () => {
                                     .map((playlist, index) => {
                                         return (
                                             <div key={index} className='flex flex-col'>
-                                                <NavLink to={`/${playlist._id}`}>
+                                                <NavLink to={`/${playlist._id}`} draggable="false">
                                                     <img src={playlist.cover_image} alt="Album Cover" className='w-[200px] h-[200px] rounded-md' draggable="false" />
                                                     <div className='text-center font-semibold text-[var(--text)]'>{playlist.name}</div>
                                                     <div className='text-center text-[var(--textSoft)]'>{playlist.artist}</div>

@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { useState } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Signup from './components/Signup/Signup'
 import MusicContext from './context/MusicContext'
 import Signin from './components/Signin/Signin'

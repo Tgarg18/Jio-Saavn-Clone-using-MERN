@@ -11,7 +11,7 @@ import MusicContext from '../../../context/MusicContext';
 
 const Player = () => {
     const [showVolume, setShowVolume] = useState(false);
-    const { currentAudio, setCurrentAudio, currentPlaylist, setCurrentPlaylist, isplaying, setIsplaying, songnumber, setSongnumber } = useContext(MusicContext);
+    const { currentAudio, currentPlaylist, isplaying, setIsplaying, songnumber, setSongnumber } = useContext(MusicContext);
     const myaudio = useRef(null);
     const [isMuted, setIsMuted] = useState(false);
     const sliderRef = useRef(null);
@@ -65,6 +65,7 @@ const Player = () => {
     const handleSeekEnd = () => {
         setIsSeeking(false);
     };
+
     const toggleMute = () => {
         setIsMuted(!isMuted);
     };
@@ -96,7 +97,7 @@ const Player = () => {
                     step={0.1}
                     value={(curtim / currentAudio[songnumber]?.totalTime) * 100 || 0}
                     ref={sliderRef}
-                    className='w-full h-[5px] text-green-400 range'
+                    className='w-full h-[5px] text-green-400 range cursor-pointer'
                     onChange={handleSeek}
                     onMouseDown={handleSeekStart}
                     onMouseUp={handleSeekEnd}

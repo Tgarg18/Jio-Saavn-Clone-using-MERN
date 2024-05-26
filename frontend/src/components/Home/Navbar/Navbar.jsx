@@ -1,15 +1,19 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import MusicContext from '../../../context/MusicContext'
 import logo from '../../../assets/logo.png'
 import { MdKeyboardArrowDown } from 'react-icons/md'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import DarkMode from '../../DarkMode/DarkMode'
 
 const Navbar = () => {
+
     const { searchquery, setSearchquery } = useContext(MusicContext)
+    const navigate = useNavigate()
+
     return (
         <>
             <nav className='bg-[var(--bg)] flex items-center justify-between px-5 py-3 border-none lg:border fixed top-0 left-0 w-full z-20'>
+
                 <div className='flex flex-col lg:flex-row justify-between items-center mx-auto lg:mx-0 gap-4'>
                     <div className='flex items-center'>
                         <NavLink to={"/"} draggable="false" className={"flex items-center gap-2"}>
@@ -25,7 +29,10 @@ const Navbar = () => {
                 </div>
 
                 <div className='hidden lg:block'>
-                    <input type="text" name="search" id="search" className='bg-[var(--bg2)] py-2 rounded-full w-[40vw] outline-none text-left px-3 text-[var(--text)]' value={searchquery} placeholder='Search for songs' onChange={(e) => { setSearchquery(e.target.value) }} />
+                    <input type="text" name="search" id="search" className='bg-[var(--bg2)] py-2 rounded-full w-[40vw] outline-none text-left px-3 text-[var(--text)]' value={searchquery} placeholder='Search for songs' onChange={(e) => {
+                        navigate('/')
+                        setSearchquery(e.target.value)
+                    }} />
                 </div>
 
                 <div className='flex justify-between items-center gap-4'>

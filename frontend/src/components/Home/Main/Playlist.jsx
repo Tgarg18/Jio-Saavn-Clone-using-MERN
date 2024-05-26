@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import MusicContext from '../../../context/MusicContext'
 
 const Playlist = () => {
-    const { currentAudio, setCurrentAudio, currentPlaylist, setCurrentPlaylist, isplaying, setIsplaying, currentsong, setCurrentsong, songnumber, setSongnumber } = useContext(MusicContext)
+    const { currentAudio, setCurrentAudio, setCurrentPlaylist, setIsplaying, setCurrentsong, songnumber, setSongnumber } = useContext(MusicContext)
     const { playlistid } = useParams()
     const [playlist, setPlaylist] = useState({
         name: "",
@@ -45,13 +45,13 @@ const Playlist = () => {
             <div className='mt-7 overflow-scroll h-auto pb-32 w-full'>
                 {playlist.songs.map((song, index) => {
                     return (
-                        <div key={index} className={`flex py-2 justify-between hover:bg-[var(--bg2)] px-4 w-full ${(songnumber === index && currentAudio===playlist.songs) ? "text-[rgb(57,190,170)] font-semibold" : ""}`} onClick={() => { setCurrentAudio(playlist.songs); setIsplaying(true); setCurrentsong(song.song_name); setCurrentPlaylist(playlist); setSongnumber(index) }}>
+                        <div key={index} className={`flex py-2 justify-between hover:bg-[var(--bg2)] px-4 w-full ${(songnumber === index && currentAudio === playlist.songs) ? "text-[rgb(57,190,170)] font-semibold" : ""}`} onClick={() => { setCurrentAudio(playlist.songs); setIsplaying(true); setCurrentsong(song.song_name); setCurrentPlaylist(playlist); setSongnumber(index) }}>
                             <div className='flex gap-8 w-1/2'>
-                                <div className='text-[var(--text)]'>{index + 1}</div>
-                                <div className='text-[var(--text)]'>{song.song_name}</div>
+                                <div className={`${(songnumber === index && currentAudio === playlist.songs) ? "text-[rgb(57,190,170)]" : "text-[--text]"}`}>{index + 1}</div>
+                                <div className={`${(songnumber === index && currentAudio === playlist.songs) ? "text-[rgb(57,190,170)]" : "text-[--text]"}`}>{song.song_name}</div>
                             </div>
-                            <div className='text-[var(--text)] w-1/2'>{playlist.artist}</div>
-                            <div className='text-[var(--text)] w-1/2'>{formatTime(Number(song.totalTime))}</div>
+                            <div className={`w-1/2 ${(songnumber === index && currentAudio === playlist.songs) ? "text-[rgb(57,190,170)]" : "text-[--text]"}`}>{playlist.artist}</div>
+                            <div className={`w-1/2 ${(songnumber === index && currentAudio === playlist.songs) ? "text-[rgb(57,190,170)]" : "text-[--text]"}`}>{formatTime(Number(song.totalTime))}</div>
                         </div>
                     )
                 })}

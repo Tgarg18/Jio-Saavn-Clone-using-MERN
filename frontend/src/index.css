@@ -17,6 +17,21 @@ body{
   background-color: rgb(246,246,246);
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.arrow {
+  display: none;
+}
+
 input[type="range"]{
   -webkit-appearance: none;
   width: 100%;
