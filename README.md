@@ -29,18 +29,17 @@ This project is a clone of the Jio Saavn music streaming platform, built using t
 ## Technologies Used
 
 - **Frontend:**
-
     - React
     - React Router (for navigation)
     - Tailwind CSS
-- **Backend:**
 
+- **Backend:**
     - Node.js
     - Express.js
     - MongoDB (for database)
     - JWT (for authentication)
-- **Others:**
 
+- **Others:**
     - Mongoose (for MongoDB object modeling)
     - bcrypt (for password hashing)
 
