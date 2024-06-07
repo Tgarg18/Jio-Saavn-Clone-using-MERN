@@ -21,7 +21,10 @@ This project is a clone of the Jio Saavn music streaming platform, built using t
   - Seek the current track
   - Display current playing track details
   - Volume Manager and mute/unmute feature
-
+ 
+- **UI Design:**
+  - Dark/Light Theme
+  - Responsive Design
 
 ## Technologies Used
 
