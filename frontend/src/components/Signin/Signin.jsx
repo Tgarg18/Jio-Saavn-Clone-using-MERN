@@ -12,8 +12,11 @@ import Logo from '../../assets/logo.png'
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { toast } from "react-toastify";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import Loader from '../Loader/Loader'
 
 const Signin = () => {
+
+  const [showLoader, setShowLoader] = useState(false)
 
   const [signinMethod, setSigninMethod] = useState("phone")
 
@@ -29,7 +32,11 @@ const Signin = () => {
   const [email, setEmail] = useState("")
 
   const handleSigninMobile = () => {
-    fetch("https://jio-saavn-clone-using-mern.onrender.com/signinwithphone", {
+    if (showLoader) {
+      return
+    }
+    setShowLoader(true)
+    fetch("http://jio-saavn-clone-using-mern.onrender.com/signinwithphone", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -63,10 +70,15 @@ const Signin = () => {
           return
         }
       });
+    setShowLoader(false)
   }
 
   const handleSigninEmail = () => {
-    fetch("https://jio-saavn-clone-using-mern.onrender.com/signinwithemail", {
+    if (showLoader) {
+      return
+    }
+    setShowLoader(true)
+    fetch("http://jio-saavn-clone-using-mern.onrender.com/signinwithemail", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -102,6 +114,7 @@ const Signin = () => {
           return
         }
       });
+    setShowLoader(false)
   }
 
   const leftstyle = [
@@ -206,7 +219,15 @@ const Signin = () => {
                     </div>
                   </div>
                   <NavLink draggable="false">
-                    <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full' onClick={() => handleSigninMobile()}>Continue</button>
+                    <button className={`bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full flex justify-center ${showLoader ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={() => {
+                      handleSigninMobile()
+                    }}>
+                      {showLoader ?
+                        <Loader />
+                        :
+                        "Continue"
+                      }
+                    </button>
                   </NavLink>
                 </form>
                 :
@@ -228,7 +249,16 @@ const Signin = () => {
                     </div>
                   </div>
                   <NavLink draggable="false">
-                    <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full' onClick={() => handleSigninEmail()}>Continue</button>
+                    <button className={`bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full flex justify-center ${showLoader ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={() => {
+                      handleSigninEmail()
+                    }}>
+                      {
+                        showLoader ?
+                          <Loader />
+                          :
+                          "Continue"
+                      }
+                    </button>
                   </NavLink>
                 </form>
               }
@@ -252,9 +282,15 @@ const Signin = () => {
               </div>
               <div className="w-full flex gap-2">
                 {(signinMethod == "phone") ?
-                  <button className='bg-black text-white py-2 px-5 rounded-3xl mt-5 text-lg w-1/2' onClick={() => setSigninMethod("email")}>Email</button>
+                  <button className='bg-black text-white py-2 px-5 rounded-3xl mt-5 text-lg w-1/2' onClick={() => {
+                    setSigninMethod("email")
+                    setShowLoader(false)
+                  }}>Email</button>
                   :
-                  <button className='bg-black text-white py-2 px-5 rounded-3xl mt-5 text-lg w-1/2' onClick={() => setSigninMethod("phone")}>Mobile Number</button>
+                  <button className='bg-black text-white py-2 px-5 rounded-3xl mt-5 text-lg w-1/2' onClick={() => {
+                    setSigninMethod("phone")
+                    setShowLoader(false)
+                  }}>Mobile Number</button>
                 }
                 <button className='bg-[rgb(61,87,152)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-lg w-1/2'>Facebook</button>
               </div>

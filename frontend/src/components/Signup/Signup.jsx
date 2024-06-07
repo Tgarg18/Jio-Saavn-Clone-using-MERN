@@ -13,10 +13,12 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { toast } from "react-toastify";
+import Loader from '../Loader/Loader'
 
 
 const Signup = () => {
     const [signupMethod, setSignupMethod] = useState("phone")
+    const [showLoader, setShowLoader] = useState(false)
 
     const navigate = useNavigate()
 
@@ -79,7 +81,11 @@ const Signup = () => {
     }, [])
 
     const handleSignupMobile = () => {
-        fetch("https://jio-saavn-clone-using-mern.onrender.com/signupwithphone", {
+        if (showLoader) {
+            return
+        }
+        setShowLoader(true)
+        fetch("http://jio-saavn-clone-using-mern.onrender.com/signupwithphone", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -115,15 +121,20 @@ const Signup = () => {
                     return
                 }
             })
+        setShowLoader(false)
     }
 
     const handleSignupEmail = () => {
+        if (showLoader) {
+            return
+        }
+        setShowLoader(true)
         const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
         if (!(emailRegex.test(email))) {
             notify.info("Enter a correct Email")
             return
         }
-        fetch("https://jio-saavn-clone-using-mern.onrender.com/signupwithemail", {
+        fetch("http://jio-saavn-clone-using-mern.onrender.com/signupwithemail", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -159,6 +170,7 @@ const Signup = () => {
                     return
                 }
             })
+        setShowLoader(false)
     }
 
     return (
@@ -231,7 +243,16 @@ const Signup = () => {
                                         </div>
                                     </div>
                                     <NavLink draggable="false">
-                                        <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full' onClick={() => handleSignupMobile()}>Continue</button>
+                                        <button className={`bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full flex justify-center ${showLoader ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={() => {
+                                            handleSignupMobile()
+                                        }}>
+                                            {
+                                                showLoader ?
+                                                    <Loader />
+                                                    :
+                                                    "Continue"
+                                            }
+                                        </button>
                                     </NavLink>
                                 </form>
                                 :
@@ -268,7 +289,16 @@ const Signup = () => {
                                         </div>
                                     </div>
                                     <NavLink draggable="false">
-                                        <button className='bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full' onClick={(e) => handleSignupEmail()}>Continue</button>
+                                        <button className={`bg-[rgb(43,197,180)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-xl w-full flex justify-center ${showLoader ? 'cursor-not-allowed' : 'cursor-pointer'}`} onClick={(e) => {
+                                            handleSignupEmail()
+                                        }}>
+                                            {
+                                                showLoader ?
+                                                    <Loader />
+                                                    :
+                                                    "Continue"
+                                            }
+                                        </button>
                                     </NavLink>
                                 </form>
                             }
@@ -292,9 +322,15 @@ const Signup = () => {
                             </div>
                             <div className="w-full flex gap-2">
                                 {(signupMethod == "phone") ?
-                                    <button className='bg-black text-white py-2 px-5 rounded-3xl mt-5 text-lg w-1/2' onClick={() => setSignupMethod("email")}>Email</button>
+                                    <button className='bg-black text-white py-2 px-5 rounded-3xl mt-5 text-lg w-1/2' onClick={() => {
+                                        setSignupMethod("email")
+                                        setShowLoader(false)
+                                    }}>Email</button>
                                     :
-                                    <button className='bg-black text-white py-2 px-5 rounded-3xl mt-5 text-lg w-1/2' onClick={() => setSignupMethod("phone")}>Mobile Number</button>
+                                    <button className='bg-black text-white py-2 px-5 rounded-3xl mt-5 text-lg w-1/2' onClick={() => {
+                                        setSignupMethod("phone")
+                                        setShowLoader(false)
+                                    }}>Mobile Number</button>
                                 }
                                 <button className='bg-[rgb(61,87,152)] text-white font-semibold py-2 px-5 rounded-3xl mt-5 text-lg w-1/2'>Facebook</button>
                             </div>
