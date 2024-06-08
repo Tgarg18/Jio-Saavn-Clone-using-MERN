@@ -36,7 +36,7 @@ const Signin = () => {
       return
     }
     setShowLoader(true)
-    fetch("http://jio-saavn-clone-using-mern.onrender.com/signinwithphone", {
+    fetch(`${import.meta.env.VITE_BACKEND_URI}/api/signinwithphone`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const Signin = () => {
       return
     }
     setShowLoader(true)
-    fetch("http://jio-saavn-clone-using-mern.onrender.com/signinwithemail", {
+    fetch(`${import.meta.env.VITE_BACKEND_URI}/api/signinwithemail`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

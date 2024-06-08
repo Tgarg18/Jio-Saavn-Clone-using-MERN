@@ -6,12 +6,11 @@ const requireLogin = require('../middlewares/requireLogin');
 const PLAYLIST = mongoose.model("PLAYLIST");
 const USER = mongoose.model("USER");
 
-router.post('/', () => {
+router.post('/api/', () => {
     console.log("hello");
 })
 
-
-router.post('/uploadplaylist1', (req, res) => {
+router.post('/api/uploadplaylist1', (req, res) => {
     const newPlaylist = new PLAYLIST({
         name: "Street Dreams",
         artist: "DIVINE, Karan Aujla",
@@ -60,7 +59,7 @@ router.post('/uploadplaylist1', (req, res) => {
         });
 })
 
-router.post('/uploadplaylist2', (req, res) => {
+router.post('/api/uploadplaylist2', (req, res) => {
     const newPlaylist = new PLAYLIST({
         name: "Chobar",
         artist: "Arjan Dhillon",
@@ -93,7 +92,7 @@ router.post('/uploadplaylist2', (req, res) => {
         });
 })
 
-router.post('/uploadplaylist3', (req, res) => {
+router.post('/api/uploadplaylist3', (req, res) => {
     const newPlaylist = new PLAYLIST({
         name: "G.O.A.T.",
         artist: "Diljit Dosanjh",
@@ -126,7 +125,7 @@ router.post('/uploadplaylist3', (req, res) => {
         });
 })
 
-router.post("/uploadplaylist4", (req, res) => {
+router.post("/api/uploadplaylist4", (req, res) => {
     const newPlaylist = new PLAYLIST({
         name: "International Villager",
         artist: "Yo Yo Honey Singh",
@@ -159,7 +158,7 @@ router.post("/uploadplaylist4", (req, res) => {
         });
 })
 
-router.post("/getallplaylists", (req, res) => {
+router.post("/api/getallplaylists", (req, res) => {
     PLAYLIST.find()
         .then((playlists) => {
             res.send(playlists);
@@ -170,7 +169,7 @@ router.post("/getallplaylists", (req, res) => {
         });
 })
 
-router.post("/getsongs", (req, res) => {
+router.post("/api/getsongs", (req, res) => {
     const playlistid = req.body.playlistid;
     PLAYLIST.findById(playlistid)
         .then((playlist) => {
@@ -181,6 +180,5 @@ router.post("/getsongs", (req, res) => {
             console.error("Error saving playlist:", err);
         });
 })
-
 
 module.exports = router;

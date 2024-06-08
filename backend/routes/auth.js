@@ -1,13 +1,13 @@
+require('dotenv').config()
 const express = require("express");
 const router = express.Router()
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt')
 const USER = mongoose.model("USER");
 const jwt = require("jsonwebtoken");
-const { jwt_secret } = require("../key");
 const requireLogin = require("../middlewares/requireLogin");
 
-router.post("/signupwithemail", (req, res) => {
+router.post("/api/signupwithemail", (req, res) => {
     const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
     const { email, password, cpassword } = req.body;
     if (!email || !password || !cpassword) {
@@ -41,7 +41,7 @@ router.post("/signupwithemail", (req, res) => {
         })
     }
 })
-router.post("/signupwithphone", (req, res) => {
+router.post("/api/signupwithphone", (req, res) => {
     const passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
     const { phone, password, cpassword } = req.body;
     if (!phone || !password || !cpassword) {
@@ -74,7 +74,7 @@ router.post("/signupwithphone", (req, res) => {
         })
     }
 })
-router.post("/signinwithemail", (req, res) => {
+router.post("/api/signinwithemail", (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(422).json({ error: "Please fill all the fields" })
@@ -87,7 +87,7 @@ router.post("/signinwithemail", (req, res) => {
             bcrypt.compare(password, savedUser.password)
                 .then((doMatch) => {
                     if (doMatch) {
-                        const token = jwt.sign({ _id: savedUser._id }, jwt_secret)
+                        const token = jwt.sign({ _id: savedUser._id }, process.env.JWT_SECRET)
                         const { _id, name, email } = savedUser
                         res.json({ token, user: { _id, name, email } })
                         return "Sign In Successfully"
@@ -100,7 +100,7 @@ router.post("/signinwithemail", (req, res) => {
                 })
         })
 })
-router.post("/signinwithphone", (req, res) => {
+router.post("/api/signinwithphone", (req, res) => {
     const { phone, password } = req.body;
     if (!phone || !password) {
         return res.status(422).json({ error: "Please fill all the fields" })
@@ -113,7 +113,7 @@ router.post("/signinwithphone", (req, res) => {
             bcrypt.compare(password, savedUser.password)
                 .then((doMatch) => {
                     if (doMatch) {
-                        const token = jwt.sign({ _id: savedUser._id }, jwt_secret)
+                        const token = jwt.sign({ _id: savedUser._id }, process.env.JWT_SECRET)
                         const { _id, name, phone_number } = savedUser
                         res.json({ token, user: { _id, name, phone_number } })
                         return "Sign In Successfully"

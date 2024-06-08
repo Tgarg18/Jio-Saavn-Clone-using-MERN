@@ -7,7 +7,7 @@ const PlaylistsContainer = () => {
     const [playlist_array, setPlaylist_array] = useState([])
 
     useEffect(() => {
-        fetch("https://jio-saavn-clone-using-mern.onrender.com/getallplaylists", {
+        fetch(`${import.meta.env.VITE_BACKEND_URI}/api/getallplaylists`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

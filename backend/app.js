@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const {mongourl} = require("./key")
 const mongoose = require("mongoose");
@@ -10,12 +11,11 @@ require("./models/model")
 require('./models/playlist')
 
 app.use(express.json())
-app.set('view engine','ejs')
 
 app.use(require('./routes/auth'))
 app.use(require('./routes/playlists'))
 
-mongoose.connect(mongourl)
+mongoose.connect(process.env.MONGODB_URI)
 
 mongoose.connection.on('connected',  ()=> {
     console.log('MongoDB Connected');

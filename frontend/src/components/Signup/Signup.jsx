@@ -85,7 +85,7 @@ const Signup = () => {
             return
         }
         setShowLoader(true)
-        fetch("http://jio-saavn-clone-using-mern.onrender.com/signupwithphone", {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/signupwithphone`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -134,7 +134,7 @@ const Signup = () => {
             notify.info("Enter a correct Email")
             return
         }
-        fetch("http://jio-saavn-clone-using-mern.onrender.com/signupwithemail", {
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/api/signupwithemail`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
