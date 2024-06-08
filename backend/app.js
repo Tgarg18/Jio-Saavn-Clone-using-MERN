@@ -1,6 +1,5 @@
 require('dotenv').config()
 const express = require("express");
-const {mongourl} = require("./key")
 const mongoose = require("mongoose");
 const app = express()
 const port = 5000
