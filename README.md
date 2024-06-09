@@ -52,48 +52,72 @@ This project is a clone of the Jio Saavn music streaming platform, built using t
 
 ### Installation
 
-1. Installing backend dependencies:
+1. Installing backend dependencies and setting up backend environment variables:
     
-    Open the terminal in the root directory
+    Open the terminal in the backend directory
     ```bash
-    cd backend
-    npm i
-    ```
-
-2. Installing frontend dependencies:
-    
-    Open the terminal in the root directory
-    ```bash
-    cd frontend
     npm i
     ```
     
-3. Set up environment variables: 
-    
-    Create a .env file in the backend folder of the project and add the following variables:
+    Create ".env" file in the backend folder and create the following variables:
     ```
     MONGODB_URI = <your_mongodb_connection_uri>
     JWT_SECRET = <your_jwt_secret>
     ```
 
-4. Starting backend:
-
-    Open the terminal in the root directory
+2. Installing frontend dependencies and setting up frontend environment variables:
+    
+    Open the terminal in the frontend directory
     ```bash
-    cd backend
+    npm i
+    ```
+    
+    Create ".env" file in the frontend folder and create the following variables:
+    ```
+    VITE_BACKEND_URI = <your_backend_url>
+    ```
+    
+3. Starting backend:
+
+    Open the terminal in the backend directory
+    ```bash
     nodemon app
     ```
-    If ```nodemon app``` is returning an error, then either change the execution policy to unrestricted in Windows Powershell, or use the following commands in the root directory:
+    If ```nodemon app``` is returning an error, then either change the execution policy to unrestricted in Windows Powershell, or use the following commands in the backend directory:
     
     ```bash
-    cd backend
     node app
     ```
     
-5. Starting frontend:
+4. Starting frontend:
 
-    Open the terminal in the root directory
+    Open the terminal in the frontend directory
     ```bash
-    cd frontend
     npm run dev
     ```
+
+## Contribution
+
+If you would like to contribute to this project, please follow these steps:
+
+1. Fork the repository.
+
+2. Create a new branch:
+
+    ```bash
+    git checkout -b feature-name
+    ```
+
+3. Make your changes and commit them:
+
+    ```bash
+    git commit -m 'Add some feature'
+    ```
+
+4. Push to the branch:
+
+    ```bash
+    git push origin feature-name
+    ```
+
+5. Open a pull request
