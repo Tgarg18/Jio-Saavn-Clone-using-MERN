@@ -43,6 +43,10 @@ This project is a clone of the Jio Saavn music streaming platform, built using t
     - Mongoose (for MongoDB object modeling)
     - bcrypt (for password hashing)
 
+## Deployment Platform
+
+**Render**: Deployed using https://render.com/
+
 ## Getting Started
 
 ### Prerequisites
